@@ -1,0 +1,27 @@
+# Python virtualenv & cache
+venv/
+.venv/
+*.pyc
+__pycache__/
+db.sqlite3
+staticfiles/
+media/
+celerybeat-schedule
+
+# Next.js & React Build Files
+frontend/.next/
+frontend/node_modules/
+frontend/out/
+
+# IDEs & System Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

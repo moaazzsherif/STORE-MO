@@ -1,0 +1,490 @@
+/* STORE-MO Ultimate Premium Admin Theme */
+
+/* ==========================================
+   1. COLOR SCHEME & THEME VARIABLES
+   ========================================== */
+:root {
+    --font-family-sans-serif: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    
+    /* Elegant Space Dark Theme */
+    --body-bg: #090d16;
+    --body-fg: #f1f5f9;
+    --primary: #6366f1;
+    --primary-hover: #818cf8;
+    --primary-glow: rgba(99, 102, 241, 0.3);
+    --secondary: #0ea5e9;
+    --accent: #d946ef;
+    --accent-glow: rgba(217, 70, 239, 0.2);
+    
+    --header-bg: rgba(15, 22, 42, 0.7);
+    --header-color: #f8fafc;
+    --header-link-color: #cbd5e1;
+    
+    --breadcrumbs-bg: rgba(30, 41, 59, 0.4);
+    --breadcrumbs-link-color: #38bdf8;
+    
+    --link-color: #38bdf8;
+    --link-hover-color: #0ea5e9;
+    
+    --border-color: rgba(255, 255, 255, 0.08);
+    --card-bg: rgba(30, 41, 59, 0.35);
+    --card-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+    --card-border: 1px solid rgba(255, 255, 255, 0.08);
+    
+    --selected-row: rgba(99, 102, 241, 0.12);
+    --selected-bg: #1e1b4b;
+    
+    --message-success-bg: rgba(16, 185, 129, 0.12);
+    --message-success-color: #34d399;
+    --message-warning-bg: rgba(245, 158, 11, 0.12);
+    --message-warning-color: #fbbf24;
+    --message-error-bg: rgba(239, 68, 68, 0.12);
+    --message-error-color: #f87171;
+}
+
+/* Light Theme Overrides */
+:root[data-theme="light"] {
+    --body-bg: #f3f4f6;
+    --body-fg: #1f2937;
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-glow: rgba(79, 70, 229, 0.12);
+    --secondary: #0284c7;
+    
+    --header-bg: rgba(255, 255, 255, 0.75);
+    --header-color: #1f2937;
+    --header-link-color: #4b5563;
+    
+    --breadcrumbs-bg: rgba(243, 244, 246, 0.8);
+    --breadcrumbs-link-color: #4f46e5;
+    
+    --link-color: #4f46e5;
+    --link-hover-color: #3730a3;
+    
+    --border-color: rgba(0, 0, 0, 0.06);
+    --card-bg: rgba(255, 255, 255, 0.65);
+    --card-shadow: 0 10px 30px rgba(31, 38, 135, 0.04);
+    --card-border: 1px solid rgba(255, 255, 255, 0.4);
+    
+    --selected-row: rgba(79, 70, 229, 0.06);
+    --selected-bg: #e0e7ff;
+    
+    --message-success-bg: rgba(209, 250, 229, 0.7);
+    --message-success-color: #065f46;
+    --message-warning-bg: rgba(254, 243, 199, 0.7);
+    --message-warning-color: #92400e;
+    --message-error-bg: rgba(254, 226, 226, 0.7);
+    --message-error-color: #991b1b;
+}
+
+/* ==========================================
+   2. GLOBAL BODY & BACKGROUNDS
+   ========================================== */
+body {
+    font-family: var(--font-family-sans-serif) !important;
+    background: var(--body-bg) !important;
+    color: var(--body-fg) !important;
+    margin: 0;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.2);
+    border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.45);
+}
+
+/* Floating background blurs */
+.bg-blur-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* ==========================================
+   3. ANIMATIONS
+   ========================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes logoGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(56, 189, 248, 0.6), 0 0 30px rgba(99, 102, 241, 0.3);
+    }
+}
+
+/* ==========================================
+   4. FLOATING HEADER & NAVIGATION
+   ========================================== */
+#header {
+    background: var(--header-bg) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: var(--card-border) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25) !important;
+    border-radius: 16px !important;
+    margin: 16px 24px 0 24px !important;
+    padding: 14px 24px !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 16px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.premium-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    text-decoration: none !important;
+}
+
+.premium-logo .logo-accent {
+    background: linear-gradient(135deg, #38bdf8, #818cf8, #d946ef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: logoGlow 4s ease-in-out infinite;
+}
+
+.premium-logo .logo-text {
+    color: var(--header-color);
+    font-weight: 300;
+}
+
+#user-tools {
+    font-size: 0.85rem;
+    color: var(--header-link-color);
+}
+
+#user-tools a {
+    color: var(--link-color) !important;
+    text-decoration: none !important;
+    padding: 7px 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin-left: 6px;
+    display: inline-block;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#user-tools a:hover {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+    transform: translateY(-1.5px);
+}
+
+/* Breadcrumbs (floating bar) */
+.breadcrumbs {
+    background: var(--breadcrumbs-bg) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: var(--card-border) !important;
+    border-radius: 12px;
+    margin: 16px 24px 0 24px !important;
+    padding: 10px 20px !important;
+    font-size: 0.82rem;
+}
+
+/* ==========================================
+   5. SIDEBAR & COLUMNS LAYOUT
+   ========================================== */
+#content {
+    padding: 24px !important;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Sidebar override */
+#nav-sidebar {
+    background: rgba(15, 22, 42, 0.45) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: var(--card-border) !important;
+    border-radius: 16px !important;
+    margin-right: 24px !important;
+    padding: 16px !important;
+    box-shadow: var(--card-shadow);
+}
+
+.dashboard #content-main {
+    width: calc(75% - 24px) !important;
+    float: left;
+}
+
+.dashboard #content-related {
+    width: 25% !important;
+    float: right;
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
+    border-radius: 16px;
+    padding: 24px !important;
+    margin-right: 0 !important;
+}
+
+/* Sidebar navigation design */
+#nav-sidebar table {
+    width: 100%;
+}
+
+#nav-sidebar th {
+    background: none !important;
+    border: none !important;
+    padding: 8px 12px !important;
+}
+
+#nav-sidebar th a {
+    color: var(--body-fg) !important;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    opacity: 0.6;
+}
+
+#nav-sidebar td {
+    padding: 6px 12px !important;
+    border: none !important;
+}
+
+#nav-sidebar tr.model-row {
+    transition: all 0.2s ease;
+}
+
+#nav-sidebar tr.model-row:hover {
+    background: rgba(99, 102, 241, 0.08) !important;
+    border-radius: 8px;
+}
+
+/* ==========================================
+   6. CARDS (MODULES) & HOVER EFFECTS
+   ========================================== */
+.module {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: var(--card-border) !important;
+    box-shadow: var(--card-shadow) !important;
+    border-radius: 16px !important;
+    margin-bottom: 24px !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.module:hover {
+    transform: translateY(-3px);
+    border-color: rgba(99, 102, 241, 0.3) !important;
+    box-shadow: 0 16px 48px rgba(99, 102, 241, 0.15) !important;
+}
+
+.module h2, .module caption {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.12), rgba(217, 70, 239, 0.02)) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    font-weight: 700 !important;
+    padding: 16px 20px !important;
+    font-size: 0.95rem !important;
+    letter-spacing: -0.2px;
+}
+
+.module tr:hover td {
+    background-color: rgba(255, 255, 255, 0.01) !important;
+}
+
+/* ==========================================
+   7. LIST VIEWS & DATA TABLES
+   ========================================== */
+#changelist {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 16px;
+}
+
+#changelist table {
+    border-collapse: separate !important;
+    border-spacing: 0 4px !important;
+}
+
+#changelist th {
+    background: rgba(15, 22, 42, 0.3) !important;
+    color: var(--body-fg) !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.8px;
+    border-bottom: 2px solid var(--border-color) !important;
+    padding: 16px !important;
+}
+
+#changelist tbody tr {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
+    border-radius: 8px;
+}
+
+#changelist tbody tr:hover {
+    background-color: var(--selected-row) !important;
+    transform: translateX(4px);
+    box-shadow: -4px 0 0 var(--primary);
+}
+
+#changelist tbody td {
+    padding: 14px 16px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    font-size: 0.86rem;
+}
+
+/* Filters panel style */
+#changelist-filter {
+    background: rgba(15, 22, 42, 0.2) !important;
+    border-left: 1px solid var(--border-color) !important;
+    padding: 20px !important;
+    border-radius: 12px;
+}
+
+/* ==========================================
+   8. INPUTS & COMPONENT PRETTYING
+   ========================================== */
+input[type="text"], input[type="password"], input[type="email"], select, textarea {
+    background: rgba(15, 22, 42, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--body-fg) !important;
+    border-radius: 10px !important;
+    padding: 10px 16px !important;
+    font-size: 0.88rem !important;
+    transition: all 0.25s ease !important;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px var(--primary-glow), 0 0 10px rgba(99, 102, 241, 0.2) !important;
+    outline: none !important;
+}
+
+/* Action button overrides */
+.button, input[type="submit"], input[type="button"] {
+    background: linear-gradient(135deg, #4f46e5, #6366f1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    padding: 10px 22px !important;
+    font-weight: 700 !important;
+    font-size: 0.88rem !important;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.2) !important;
+}
+
+.button:hover, input[type="submit"]:hover {
+    background: linear-gradient(135deg, #4338ca, #4f46e5) !important;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4) !important;
+}
+
+/* Object tools buttons on change forms */
+.object-tools a {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 10px !important;
+    padding: 8px 16px !important;
+    font-weight: 600 !important;
+    color: var(--body-fg) !important;
+    transition: all 0.2s ease;
+}
+
+.object-tools a:hover {
+    background: rgba(99, 102, 241, 0.15) !important;
+    border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+/* ==========================================
+   9. BRAND NEW PREMIUM LOGIN PAGE
+   ========================================== */
+.premium-login-body {
+    background: radial-gradient(circle at 10% 20%, #060913 0%, #0a0d1a 100%) !important;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-card {
+    background: rgba(17, 24, 39, 0.6) !important;
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    box-shadow: 0 24px 64px -10px rgba(0, 0, 0, 0.7) !important;
+    border-radius: 28px !important;
+    padding: 48px !important;
+    width: 100%;
+    max-width: 420px;
+}
+
+.login-card label {
+    font-size: 0.78rem !important;
+    color: #94a3b8 !important;
+    margin-bottom: 6px !important;
+}
+
+.login-card input[type="text"], .login-card input[type="password"] {
+    background: rgba(10, 15, 30, 0.75) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 12px 18px !important;
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 18px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.premium-btn {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 14px !important;
+    font-size: 0.92rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25) !important;
+}
+
+.premium-btn:hover {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4) !important;
+}
