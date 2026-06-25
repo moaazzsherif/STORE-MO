@@ -88,17 +88,29 @@ TEMPLATES = [
 WSGI_APPLICATION = 'store_mo.wsgi.application'
 
 # Database configuration (PostgreSQL with SQLite fallback for local tests)
-_db_url = os.environ.get('DATABASE_URL', '')
-if _db_url.startswith('://'):
+_db_url = os.environ.get('DATABASE_URL', '').strip()
+if not _db_url:
+    # Remove from env if empty to force fallback to SQLite
+    os.environ.pop('DATABASE_URL', None)
+elif _db_url.startswith('://'):
     os.environ['DATABASE_URL'] = 'postgresql' + _db_url
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-        ssl_require=not DEBUG
-    )
-}
+try:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+            conn_max_age=600,
+            ssl_require=not DEBUG
+        )
+    }
+except Exception:
+    # Safe fallback to SQLite if parsing fails due to invalid format
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Custom Auth User Model
