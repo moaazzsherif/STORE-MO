@@ -88,6 +88,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'store_mo.wsgi.application'
 
 # Database configuration (PostgreSQL with SQLite fallback for local tests)
+_db_url = os.environ.get('DATABASE_URL', '')
+if _db_url.startswith('://'):
+    os.environ['DATABASE_URL'] = 'postgresql' + _db_url
+
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
