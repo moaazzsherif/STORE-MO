@@ -1,3 +1,13 @@
+---
+title: Store Mo Backend
+emoji: 📦
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 8000
+pinned: false
+---
+
 # STORE-MO SaaS ERP Backend System
 
 STORE-MO is a production-ready, multi-tenant enterprise ERP backend system designed to manage inventory, POS shifts, e-commerce stores, supplier relationships, subscription billing, and analytical reports across thousands of isolated businesses.
