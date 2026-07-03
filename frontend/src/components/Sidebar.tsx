@@ -92,25 +92,25 @@ export default function Sidebar({ onMenuToggle }: SidebarProps) {
 
       {/* Sidebar shell */}
       <aside
-        className={`fixed top-0 bottom-0 z-50 flex flex-col w-64 bg-slate-950/80 border-r border-white/5 backdrop-blur-xl transition-all duration-300 md:translate-x-0 ${
+        className={`fixed top-0 bottom-0 z-50 flex flex-col w-64 bg-[var(--background)] border-r border-[var(--border)] shadow-[4px_0_15px_rgba(0,0,0,0.05)] dark:shadow-[4px_0_15px_rgba(0,0,0,0.4)] transition-all duration-300 md:translate-x-0 ${
           lang === 'ar'
             ? 'right-0 border-l border-r-0 ' + (isOpen ? 'translate-x-0' : 'translate-x-full')
             : 'left-0 ' + (isOpen ? 'translate-x-0' : '-translate-x-full')
         }`}
       >
         {/* Logo / Header */}
-        <div className="h-20 flex items-center px-6 border-b border-white/5 gap-2">
-          <Sparkles className="text-indigo-400 animate-pulse" size={24} />
-          <span className="text-lg font-bold bg-gradient-to-r from-sky-400 to-indigo-400 bg-clip-text text-transparent">
+        <div className="h-20 flex items-center px-6 border-b border-[var(--border)] gap-2">
+          <Sparkles className="text-[var(--primary)] animate-pulse" size={24} />
+          <span className="text-lg font-black tracking-wider text-[var(--foreground)]">
             STORE-MO
           </span>
-          <span className="text-xs text-slate-400 font-light border border-white/10 rounded-md px-1.5 py-0.5 ml-auto uppercase">
+          <span className="text-[9px] text-[var(--primary)] font-bold skeuo-inset rounded-md px-2 py-1 ml-auto uppercase tracking-wide">
             {user?.role || 'SaaS'}
           </span>
         </div>
 
         {/* Navigation list */}
-        <nav className="flex-1 px-4 py-4 overflow-y-auto space-y-1">
+        <nav className="flex-1 px-4 py-6 overflow-y-auto space-y-2">
           {filteredItems.map((item) => {
             const isActive = pathname === item.path;
             const Icon = item.icon;
@@ -119,13 +119,13 @@ export default function Sidebar({ onMenuToggle }: SidebarProps) {
                 key={item.path}
                 href={item.path}
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-150 ${
                   isActive
-                    ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    ? 'skeuo-inset text-[var(--primary)] font-bold'
+                    : 'text-slate-400 hover:text-[var(--foreground)] hover:bg-white/5 dark:hover:bg-white/1 shadow-[1px_1px_2px_rgba(0,0,0,0.02)] hover:shadow-[3px_3px_6px_rgba(0,0,0,0.05),-3px_-3px_6px_rgba(255,255,255,0.5)] dark:hover:shadow-[3px_3px_8px_rgba(0,0,0,0.3),-3px_-3px_8px_rgba(255,255,255,0.02)]'
                 }`}
               >
-                <Icon size={18} />
+                <Icon size={18} className={isActive ? 'text-[var(--primary)]' : 'text-slate-400'} />
                 <span>{item.name}</span>
               </Link>
             );
@@ -133,22 +133,22 @@ export default function Sidebar({ onMenuToggle }: SidebarProps) {
         </nav>
 
         {/* User profile / Log out footer */}
-        <div className="p-4 border-t border-white/5 space-y-3">
-          <div className="flex items-center gap-3 px-2">
-            <div className="h-9 w-9 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center font-bold text-indigo-400">
+        <div className="p-4 border-t border-[var(--border)] space-y-4">
+          <div className="flex items-center gap-3 px-2 py-2 rounded-xl skeuo-inset">
+            <div className="h-9 w-9 rounded-full bg-[var(--card)] shadow-[2px_2px_5px_rgba(0,0,0,0.1),-2px_-2px_5px_rgba(255,255,255,0.8)] dark:shadow-[2px_2px_5px_rgba(0,0,0,0.4),-2px_-2px_5px_rgba(255,255,255,0.02)] border border-[var(--card-border)] flex items-center justify-center font-bold text-[var(--primary)] text-xs">
               {user?.name ? user.name[0].toUpperCase() : 'A'}
             </div>
             <div className="overflow-hidden">
-              <p className="text-xs font-bold truncate text-slate-200">{user?.name || 'Administrator'}</p>
+              <p className="text-xs font-bold truncate text-[var(--foreground)]">{user?.name || 'Administrator'}</p>
               <p className="text-[10px] text-slate-400 truncate">{user?.tenantName || 'Cairo Branch'}</p>
             </div>
           </div>
 
           <button
             onClick={logout}
-            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-semibold text-red-400 hover:bg-red-500/10 transition cursor-pointer"
+            className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl text-xs font-bold text-red-500 skeuo-inset hover:text-red-600 hover:shadow-[inset_2px_2px_4px_rgba(0,0,0,0.1)] transition cursor-pointer"
           >
-            <LogOut size={16} />
+            <LogOut size={14} />
             <span>{t.logout}</span>
           </button>
         </div>

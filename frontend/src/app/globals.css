@@ -1,39 +1,53 @@
 @import "tailwindcss";
 
 /* ==========================================
-   1. THEME PALETTE SETTINGS (CSS Variables)
+   1. THEME PALETTE SETTINGS (Skeuomorphic CSS Variables)
    ========================================== */
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  /* Light Mode - Warm Beige / Cream tactile theme */
+  --background: #f3ede2;
+  --foreground: #3c372f;
   
-  --card: rgba(255, 255, 255, 0.7);
-  --card-border: rgba(0, 0, 0, 0.08);
-  --card-shadow: 0 10px 30px rgba(31, 38, 135, 0.04);
+  --card: #f3ede2;
+  --card-border: rgba(255, 255, 255, 0.6);
   
-  --border: rgba(0, 0, 0, 0.08);
+  /* Convex 3D Shadows (Raised panels) */
+  --card-shadow: 6px 6px 14px #ddd6c8, -6px -6px 14px #ffffff;
   
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --primary-glow: rgba(79, 70, 229, 0.15);
+  /* Concave 3D Shadows (Sunken panels) */
+  --inset-shadow: inset 4px 4px 8px #ddd6c8, inset -4px -4px 8px #ffffff;
+  
+  --border: rgba(60, 55, 47, 0.06);
+  
+  /* Palette 1: Copper Bronze (Default Accent) */
+  --primary: #c2874e;
+  --primary-hover: #aa703a;
+  --primary-glow: rgba(194, 135, 78, 0.15);
   
   --success: #10b981;
   --warning: #f59e0b;
   --error: #ef4444;
 }
 
-/* Palette 1: Indigo Cyber (Default Dark) */
+/* Dark Mode - Warm tactile espresso coffee theme */
 .dark {
-  --background: #090d16;
-  --foreground: #f1f5f9;
-  --card: rgba(30, 41, 59, 0.4);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
-  --border: rgba(255, 255, 255, 0.08);
+  --background: #1c1713;
+  --foreground: #f4eee2;
   
-  --primary: #6366f1;
-  --primary-hover: #818cf8;
-  --primary-glow: rgba(99, 102, 241, 0.25);
+  --card: #1c1713;
+  --card-border: rgba(255, 255, 255, 0.02);
+  
+  /* Convex 3D Shadows (Raised panels) */
+  --card-shadow: 6px 6px 16px #0d0a08, -6px -6px 16px #2b241e;
+  
+  /* Concave 3D Shadows (Sunken panels) */
+  --inset-shadow: inset 4px 4px 10px #0d0a08, inset -4px -4px 10px #2b241e;
+  
+  --border: rgba(244, 238, 226, 0.04);
+  
+  --primary: #dfad79;
+  --primary-hover: #ecc294;
+  --primary-glow: rgba(223, 173, 121, 0.25);
   
   --success: rgba(16, 185, 129, 0.15);
   --warning: rgba(245, 158, 11, 0.15);
@@ -46,20 +60,12 @@
   --primary-hover: #38bdf8;
   --primary-glow: rgba(14, 165, 233, 0.25);
 }
-.dark.palette-ocean {
-  --background: #040d1a;
-  --card: rgba(15, 23, 42, 0.45);
-}
 
 /* Palette 3: Emerald Forest */
 .palette-emerald {
   --primary: #10b981;
   --primary-hover: #34d399;
   --primary-glow: rgba(16, 185, 129, 0.25);
-}
-.dark.palette-emerald {
-  --background: #050f14;
-  --card: rgba(11, 27, 28, 0.45);
 }
 
 /* Palette 4: Sunset Glow */
@@ -68,20 +74,12 @@
   --primary-hover: #fbbf24;
   --primary-glow: rgba(217, 119, 6, 0.25);
 }
-.dark.palette-amber {
-  --background: #110d0a;
-  --card: rgba(28, 20, 16, 0.45);
-}
 
 /* Palette 5: Aura Violet */
 .palette-violet {
   --primary: #a855f7;
   --primary-hover: #c084fc;
   --primary-glow: rgba(168, 85, 247, 0.25);
-}
-.dark.palette-violet {
-  --background: #0f0a1c;
-  --card: rgba(24, 15, 38, 0.45);
 }
 
 /* ==========================================
@@ -95,19 +93,19 @@ body {
   overflow-x: hidden;
 }
 
-/* Glassmorphism Styles */
+/* Glassmorphism overridden to tactile skeuomorphic panel */
 .glass-panel {
-  background: var(--card);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: var(--card-border);
-  box-shadow: var(--card-shadow);
+  background: var(--card) !important;
+  border: 1px solid var(--card-border) !important;
+  box-shadow: var(--card-shadow) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* Custom premium scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -121,7 +119,7 @@ body {
 }
 
 /* ==========================================
-   3. ANIMATIONS & DRIFTING LIGHT ORBS
+   3. ANIMATIONS
    ========================================== */
 @keyframes fadeInUp {
   from {
@@ -138,34 +136,85 @@ body {
   animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.bg-blur-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.15;
+/* ==========================================
+   4. FORM OVERRIDES (Inset Tactile Wells)
+   ========================================== */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+textarea,
+select {
+  background: var(--card) !important;
+  border: 1px solid rgba(0, 0, 0, 0.02) !important;
+  box-shadow: var(--inset-shadow) !important;
+  color: var(--foreground) !important;
+  transition: all 0.2s ease-in-out;
+  border-radius: 12px !important;
+}
+
+.dark input[type="text"],
+.dark input[type="password"],
+.dark input[type="email"],
+.dark input[type="number"],
+.dark input[type="tel"],
+.dark textarea,
+.dark select {
+  border: 1px solid rgba(255, 255, 255, 0.005) !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  border-color: var(--primary) !important;
+  box-shadow: var(--inset-shadow), 0 0 0 2px var(--primary-glow) !important;
 }
 
 /* ==========================================
-   4. RIPPLE & NEON UTILITIES
+   5. BUTTON OVERRIDES (Convex Tactile Press-down physics)
    ========================================== */
-.glow-border:hover {
-  border-color: var(--primary);
-  box-shadow: 0 0 15px var(--primary-glow);
+.glow-btn, .skeuo-btn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.15), -3px -3px 8px rgba(255,255,255,0.05);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
-.glow-btn {
-  background: var(--primary);
-  color: white;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 14px var(--primary-glow);
+.glow-btn:hover, .skeuo-btn:hover {
+  background: linear-gradient(135deg, var(--primary-hover), var(--primary)) !important;
+  transform: translateY(-0.5px);
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.2), -4px -4px 10px rgba(255,255,255,0.08);
 }
-.glow-btn:hover {
-  background: var(--primary-hover);
-  box-shadow: 0 6px 20px var(--primary-glow);
-  transform: translateY(-1.5px);
+
+.glow-btn:active, .skeuo-btn:active {
+  transform: translateY(1.5px);
+  /* Physical depress state */
+  box-shadow: inset 4px 4px 8px rgba(0,0,0,0.3), inset -4px -4px 8px rgba(255,255,255,0.05) !important;
 }
-.glow-btn:active {
-  transform: translateY(0);
+
+.glow-border:hover {
+  border-color: var(--primary) !important;
+  box-shadow: var(--card-shadow), 0 0 0 2px var(--primary-glow) !important;
+}
+
+/* ==========================================
+   6. TACTILE UTILITIES
+   ========================================== */
+.skeuo-inset {
+  background: var(--card) !important;
+  border: 1px solid rgba(0, 0, 0, 0.01) !important;
+  box-shadow: var(--inset-shadow) !important;
+}
+
+.dark .skeuo-inset {
+  border: 1px solid rgba(255, 255, 255, 0.005) !important;
+}
+
+/* Custom checkbox / radio buttons */
+input[type="checkbox"], input[type="radio"] {
+  accent-color: var(--primary);
+  box-shadow: var(--inset-shadow);
+  cursor: pointer;
 }
